@@ -30,7 +30,7 @@ gulp.task('scss', ['pug'], () => {
     .pipe($.sass().on('error', $.sass.logError))
     .pipe($.autoprefixer('last 5 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe($.cleanCss({compatibility: 'ie8'}))
-    .pipe(gulp.dest('build/assets/css'))
+    .pipe(gulp.dest('build/css'))
     .pipe(browserSync.stream());
 });
 
@@ -47,7 +47,7 @@ gulp.task('scss', ['pug'], () => {
 gulp.task('js', ['pug'], () => {
   return gulp.src('app/assets/js/*.js')
     .pipe($.uglify())
-    .pipe(gulp.dest('build/assets/js'))
+    .pipe(gulp.dest('build/js'))
     .pipe(browserSync.stream());
 });
 
@@ -80,9 +80,9 @@ gulp.task('pug', () => {
 |
 */
 gulp.task('images', () => {
-  return gulp.src('build/img/**/*')
+  return gulp.src('build/images/**/*')
     .pipe($.imagemin({progressive: true}))
-    .pipe(gulp.dest('build/img'))
+    .pipe(gulp.dest('build/images'))
 });
 
 
@@ -114,7 +114,7 @@ gulp.task('vendor-js', () => {
   return gulp.src(['app/assets/vendor/jquery/**/*.js', 'app/assets/vendor/**/*.js'])
       .pipe($.concat('vendor.js'))
       .pipe($.uglify())
-      .pipe(gulp.dest('build/assets/js'))
+      .pipe(gulp.dest('build/js'))
 });
 
 
@@ -131,7 +131,7 @@ gulp.task('vendor-css', () => {
   return gulp.src('app/assets/vendor/**/*.css')
       .pipe($.concat('vendor.css'))
       .pipe($.cleanCss({compatibility: 'ie8'}))
-      .pipe(gulp.dest('build/assets/css'))
+      .pipe(gulp.dest('build/css'))
 });
 
 
@@ -210,11 +210,11 @@ gulp.task('serve', () => {
 */
 
 gulp.task('rev', ['clean'], () => {
-    gulp.src(['build/assets/**/*', 'build/*.html'])
+    gulp.src(['build/**/*', 'build/*.html'])
     .pipe($.revAll.revision({
         dontRenameFile:['.html'], debug:true,
         hashLength: 4,
-        dontGlobal: ['assets/css/vendor.css','assets/js/vendor.js', '.json'],
+        dontGlobal: ['css/vendor.css','js/vendor.js', '.json'],
     }))
     .pipe(gulp.dest('build'))
     .pipe($.revAll.manifestFile())
