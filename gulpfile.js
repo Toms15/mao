@@ -212,7 +212,7 @@ gulp.task('serve', () => {
 gulp.task('rev', ['clean'], () => {
     gulp.src(['build/**/*', 'build/*.html'])
     .pipe($.revAll.revision({
-        dontRenameFile:['.html'], debug:true,
+        dontRenameFile:['.html','.txt'], debug:true,
         hashLength: 4,
         dontGlobal: ['css/vendor.css','js/vendor.js', '.json'],
     }))
